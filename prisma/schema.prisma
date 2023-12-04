@@ -11,14 +11,34 @@ datasource db {
 }
 
 model User {
-  id          String @id @default(uuid())
-  name        String
-  cep         BigInt
-  address     String
-  city        String
-  email       String @unique
-  password    String
-  phoneNumber BigInt
+  id            String   @id @default(uuid())
+  name          String
+  cep           Decimal
+  address       String?
+  city          String?
+  email         String   @unique
+  password_hash String
+  phoneNumber   Decimal?
+  created_at    DateTime @default(now())
+  pets          Pet[]
 
   @@map("users")
+}
+
+model Pet {
+  id                    String   @id @default(uuid())
+  name                  String
+  about                 String
+  age                   Decimal
+  size                  String
+  energy_level          String
+  level_of_independence String
+  environment           String
+  photo                 String?
+  requirements          String[]
+
+  user   User   @relation(fields: [org_id], references: [id])
+  org_id String
+
+  @@map("pets")
 }
