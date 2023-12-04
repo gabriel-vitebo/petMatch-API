@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma'
+import { gettingUserCep } from '@/utils/gettingUserCep'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
@@ -10,18 +11,27 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     cep: z.number(),
   })
 
+  const userFullAddressSchema = z.object({
+    city: z.string(),
+    neighborhood: z.string(),
+  })
+
   const { name, email, password, cep } = registerBodySchema.parse(request.body)
 
-  const userCep = `GET https://brasilapi.com.br/api/cep/v2/${cep}`
+  const userFullAddress = await gettingUserCep(cep)
 
-  console.log(userCep)
+  const { city, neighborhood } = userFullAddressSchema.parse(userFullAddress)
+
+  console.log({ city, neighborhood })
 
   await prisma.user.create({
     data: {
       name,
       email,
       password_hash: password,
-      cep: userCep,
+      cep,
+      city,
+      address: neighborhood,
     },
   })
 
