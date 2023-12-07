@@ -6,8 +6,8 @@ interface RegisterUseCaseRequest {
   email: string
   password: string
   cep: number
-  city: string
-  address: string
+  city?: string
+  address?: string
 }
 
 export class RegisterUseCase {
@@ -29,13 +29,30 @@ export class RegisterUseCase {
       throw new Error('email already exist')
     }
 
+    const userAddress = await this.getAddress(cep, city, address)
+
+    if (!userAddress) {
+      throw new Error('invalid address')
+    }
+
     await this.usersRepository.create({
       name,
       email,
       password_hash,
       cep,
-      city,
-      address,
+      city: userAddress?.city,
+      address: userAddress?.neighborhood,
     })
+  }
+
+  private async getAddress(cep: number, city?: string, address?: string) {
+    if (!city || !address) {
+      return await this.usersRepository.gettingCep(cep)
+    }
+
+    return {
+      city,
+      neighborhood: address,
+    }
   }
 }

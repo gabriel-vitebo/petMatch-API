@@ -1,4 +1,3 @@
-import { gettingUserCep } from '@/utils/gettingUserCep'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { RegisterUseCase } from '@/use-cases/register'
@@ -9,19 +8,13 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     name: z.string(),
     email: z.string().email(),
     password: z.string().min(6),
-    cep: z.number(),
+    cep: z.coerce.number(),
+    city: z.string().optional(),
+    address: z.string().optional(),
   })
 
-  const userFullAddressSchema = z.object({
-    city: z.string(),
-    neighborhood: z.string(),
-  })
-
-  const { name, email, password, cep } = registerBodySchema.parse(request.body)
-
-  const userFullAddress = await gettingUserCep(cep)
-
-  const { city, neighborhood } = userFullAddressSchema.parse(userFullAddress)
+  const { name, email, password, cep, city, address } =
+    registerBodySchema.parse(request.body)
 
   try {
     const prismaUsersRepository = new PrismaUsersRepository()
@@ -33,7 +26,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
       password,
       cep,
       city,
-      address: neighborhood,
+      address,
     })
   } catch (error) {
     return reply.status(409).send()
