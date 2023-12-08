@@ -1,6 +1,7 @@
 import { UsersRepository } from '@/repositories/users-repository'
 import { hash } from 'bcryptjs'
 import { UserAlreadyExistsError } from './erros/user-alredy-exist-error'
+import { User } from '@prisma/client'
 
 interface RegisterUseCaseRequest {
   name: string
@@ -9,6 +10,10 @@ interface RegisterUseCaseRequest {
   cep: number
   city?: string
   address?: string
+}
+
+interface RegisterUseCaseResponse {
+  user: User
 }
 
 export class RegisterUseCase {
@@ -21,7 +26,7 @@ export class RegisterUseCase {
     cep,
     city,
     address,
-  }: RegisterUseCaseRequest) {
+  }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
     const password_hash = await hash(password, 6)
 
     const userWithSameEmail = await this.usersRepository.findByEmail(email)
@@ -36,7 +41,7 @@ export class RegisterUseCase {
       throw new Error('invalid address')
     }
 
-    await this.usersRepository.create({
+    const user = await this.usersRepository.create({
       name,
       email,
       password_hash,
@@ -44,6 +49,8 @@ export class RegisterUseCase {
       city: userAddress?.city,
       address: userAddress?.neighborhood,
     })
+
+    return { user }
   }
 
   private async getAddress(cep: number, city?: string, address?: string) {
