@@ -9,12 +9,12 @@ describe('Register Use Case', () => {
     const registerUseCase = new RegisterUseCase(usersRepository)
 
     const { user } = await registerUseCase.execute({
-      name: 'john doe',
-      email: 'johndoe@test.com',
+      name: 'john Doe',
+      email: 'johndoe.email.com',
       password: '123456',
       cep: 12345678,
       city: 'South Park',
-      address: 'Ao lado da casa do Cartman',
+      address: 'do lado da casa do Cartman',
     })
 
     const isPasswordCorrectlyHashed = await compare(
