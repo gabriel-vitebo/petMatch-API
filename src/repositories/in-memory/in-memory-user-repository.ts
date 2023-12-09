@@ -20,10 +20,11 @@ export class InMemoryUsersRepository implements UsersRepository {
       name: data.name,
       email: data.email,
       password_hash: data.password_hash,
-      created_at: new Date(),
       cep: data.cep,
-      city: data.city,
-      address: data.address,
+      city: data.city || null,
+      address: data.address || null,
+      created_at: new Date(),
+      phoneNumber: data.phoneNumber || null,
     }
 
     this.items.push(user)
@@ -31,7 +32,9 @@ export class InMemoryUsersRepository implements UsersRepository {
     return user
   }
 
-  async gettingCep(cep: number) {
+  gettingCep(
+    cep: number,
+  ): Promise<{ city: string; neighborhood: string } | undefined> {
     throw new Error('Method not implemented.')
   }
 }
