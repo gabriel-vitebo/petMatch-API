@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "pets" ALTER COLUMN "age" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "users" ALTER COLUMN "cep" SET DATA TYPE TEXT,
+ALTER COLUMN "phoneNumber" SET DATA TYPE TEXT;

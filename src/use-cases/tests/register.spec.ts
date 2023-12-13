@@ -13,7 +13,7 @@ describe('Register Use Case', () => {
       name: 'john Doe',
       email: 'johndoe.email.com',
       password: '123456',
-      cep: 12345678,
+      cep: '12345678',
       city: 'South Park',
       address: 'do lado da casa do Cartman',
     })
@@ -29,7 +29,7 @@ describe('Register Use Case', () => {
       name: 'john Doe',
       email: 'johndoe.email.com',
       password: '123456',
-      cep: 12345678,
+      cep: '12345678',
       city: 'South Park',
       address: 'do lado da casa do Cartman',
     })
@@ -52,7 +52,7 @@ describe('Register Use Case', () => {
       name: 'john Doe',
       email,
       password: '123456',
-      cep: 12345678,
+      cep: '12345678',
       city: 'South Park',
       address: 'do lado da casa do Cartman',
     })
@@ -62,7 +62,7 @@ describe('Register Use Case', () => {
         name: 'john Doe',
         email,
         password: '123456',
-        cep: 12345678,
+        cep: '12345678',
         city: 'South Park',
         address: 'do lado da casa do Cartman',
       }),
@@ -77,7 +77,7 @@ describe('Register Use Case', () => {
       name: 'john Doe',
       email: 'johndoe.email.com',
       password: '123456',
-      cep: 12223670,
+      cep: '12223670',
     })
 
     expect(user.city).toEqual(expect.any(String))
@@ -92,7 +92,7 @@ describe('Register Use Case', () => {
       name: 'john Doe',
       email: 'johndoe.email.com',
       password: '123456',
-      cep: 12345678,
+      cep: '12345678',
       city: 'Any City',
       address: 'Any Neighborhood',
     })

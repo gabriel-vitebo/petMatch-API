@@ -3,7 +3,7 @@ import { UsersRepository } from '../users-repository'
 
 class Address {
   constructor(
-    public cep: number,
+    public cep: string,
     public city: string,
     public neighborhood: string,
   ) {}
@@ -40,7 +40,7 @@ export class InMemoryUsersRepository implements UsersRepository {
     return user
   }
 
-  async gettingCep(cep: number, city?: string, address?: string) {
+  async gettingCep(cep: string, city?: string, address?: string) {
     if (!city || !address) {
       const userAddress = new Address(cep, 'Any City', 'Any Neighborhood')
       return userAddress

@@ -9,7 +9,7 @@ const cepResponseSchema = z.object({
 })
 
 export class PrismaUsersRepository implements UsersRepository {
-  async gettingCep(cep: number) {
+  async gettingCep(cep: string) {
     try {
       const url = `https://viacep.com.br/ws/${cep}/json/`
 
