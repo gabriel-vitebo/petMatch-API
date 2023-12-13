@@ -1,6 +1,14 @@
 import { Prisma, User } from '@prisma/client'
 import { UsersRepository } from '../users-repository'
 
+class Address {
+  constructor(
+    public cep: number,
+    public city: string,
+    public neighborhood: string,
+  ) {}
+}
+
 export class InMemoryUsersRepository implements UsersRepository {
   public items: User[] = []
 
@@ -32,9 +40,15 @@ export class InMemoryUsersRepository implements UsersRepository {
     return user
   }
 
-  gettingCep(
-    cep: number,
-  ): Promise<{ city: string; neighborhood: string } | undefined> {
-    throw new Error('Method not implemented.')
+  async gettingCep(cep: number, city?: string, address?: string) {
+    if (!city || !address) {
+      const userAddress = new Address(cep, 'Any City', 'Any Neighborhood')
+      return userAddress
+    }
+
+    return {
+      city,
+      neighborhood: address,
+    }
   }
 }
