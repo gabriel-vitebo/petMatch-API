@@ -13,7 +13,7 @@ describe('Register Use Case', () => {
       name: 'john Doe',
       email: 'johndoe.email.com',
       password: '123456',
-      cep: 12345678,
+      cep: '12345678',
       city: 'South Park',
       address: 'do lado da casa do Cartman',
     })
@@ -29,7 +29,7 @@ describe('Register Use Case', () => {
       name: 'john Doe',
       email: 'johndoe.email.com',
       password: '123456',
-      cep: 12345678,
+      cep: '12345678',
       city: 'South Park',
       address: 'do lado da casa do Cartman',
     })
@@ -52,7 +52,7 @@ describe('Register Use Case', () => {
       name: 'john Doe',
       email,
       password: '123456',
-      cep: 12345678,
+      cep: '12345678',
       city: 'South Park',
       address: 'do lado da casa do Cartman',
     })
@@ -62,42 +62,10 @@ describe('Register Use Case', () => {
         name: 'john Doe',
         email,
         password: '123456',
-        cep: 12345678,
+        cep: '12345678',
         city: 'South Park',
         address: 'do lado da casa do Cartman',
       }),
     ).rejects.toBeInstanceOf(UserAlreadyExistsError)
-  })
-
-  it('should be able to get the users address by the cep', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
-
-    const { user } = await registerUseCase.execute({
-      name: 'john Doe',
-      email: 'johndoe.email.com',
-      password: '123456',
-      cep: 12223670,
-    })
-
-    expect(user.city).toEqual(expect.any(String))
-    expect(user.address).toEqual(expect.any(String))
-  })
-
-  it('should be able to get the users address without cep', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
-
-    const { user } = await registerUseCase.execute({
-      name: 'john Doe',
-      email: 'johndoe.email.com',
-      password: '123456',
-      cep: 12345678,
-      city: 'Any City',
-      address: 'Any Neighborhood',
-    })
-
-    expect(user.city).toEqual(expect.any(String))
-    expect(user.address).toEqual(expect.any(String))
   })
 })

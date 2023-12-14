@@ -7,7 +7,7 @@ interface RegisterUseCaseRequest {
   name: string
   email: string
   password: string
-  cep: number
+  cep: string
   city?: string
   address?: string
 }
@@ -53,9 +53,11 @@ export class RegisterUseCase {
     return { user }
   }
 
-  private async getAddress(cep: number, city?: string, address?: string) {
+  private async getAddress(cep: string, city?: string, address?: string) {
+    const correctedCep = cep.replace(/\D/g, '')
+
     if (!city || !address) {
-      return await this.usersRepository.gettingCep(cep)
+      return await this.usersRepository.gettingCep(correctedCep)
     }
 
     return {

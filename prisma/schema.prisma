@@ -13,12 +13,12 @@ datasource db {
 model User {
   id            String   @id @default(uuid())
   name          String
-  cep           Int
+  cep           String
   address       String?
   city          String?
   email         String   @unique
   password_hash String
-  phoneNumber   Int?
+  phoneNumber   String?
   created_at    DateTime @default(now())
   pets          Pet[]
 
@@ -29,7 +29,7 @@ model Pet {
   id                    String   @id @default(uuid())
   name                  String
   about                 String
-  age                   Int
+  age                   String
   size                  String
   energy_level          String
   level_of_independence String
