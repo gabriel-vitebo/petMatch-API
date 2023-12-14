@@ -54,8 +54,10 @@ export class RegisterUseCase {
   }
 
   private async getAddress(cep: string, city?: string, address?: string) {
+    const correctedCep = cep.replace(/\D/g, '')
+
     if (!city || !address) {
-      return await this.usersRepository.gettingCep(cep)
+      return await this.usersRepository.gettingCep(correctedCep)
     }
 
     return {
