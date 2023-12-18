@@ -68,4 +68,34 @@ describe('Register Use Case', () => {
       }),
     ).rejects.toBeInstanceOf(UserAlreadyExistsError)
   })
+
+  it('should be possible to get the address by CEP', async () => {
+    const usersRepository = new InMemoryUsersRepository()
+    const registerUseCase = new RegisterUseCase(usersRepository)
+
+    const { user } = await registerUseCase.execute({
+      name: 'john Doe',
+      email: 'johnDoe@example.com',
+      password: '123456',
+      cep: '123456789',
+    })
+
+    expect(user.city).toEqual('South Park')
+    expect(user.address).toEqual('Casa do Cartman')
+  })
+
+  it('should return an error if the CEP does not exist', async () => {
+    const usersRepository = new InMemoryUsersRepository()
+    const registerUseCase = new RegisterUseCase(usersRepository)
+
+    await expect(() =>
+      registerUseCase.execute({
+        name: 'john Doe',
+        email: 'johnDoe@example.com',
+        password: '123456',
+        cep: '000000000',
+      }),
+    ).throw(new Error('invalid address'))
+    // expect(user.address).toEqual('Casa do Cartman')
+  })
 })

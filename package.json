@@ -10,7 +10,9 @@
     "commit": "cz",
     "prepare": "husky install",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +23,8 @@
     "@rocketseat/eslint-config": "2.1.0",
     "@types/bcryptjs": "2.4.6",
     "@types/node": "20.10.1",
+    "@vitest/coverage-v8": "1.0.4",
+    "@vitest/ui": "1.0.4",
     "commitizen": "4.3.0",
     "commitlint-config-gitmoji": "2.3.1",
     "cz-emoji": "1.3.2-canary.2",
