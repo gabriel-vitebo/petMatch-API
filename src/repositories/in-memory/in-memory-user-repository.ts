@@ -42,12 +42,12 @@ export class InMemoryUsersRepository implements UsersRepository {
 
   async gettingCep(cep: string, city?: string, address?: string) {
     if (!city || !address) {
-      if (cep === '123456789') {
-        const userAddress = new Address(cep, 'South Park', 'Casa do Cartman')
-        return userAddress
+      if (cep === '000000000') {
+        throw new Error('invalid address')
       }
-      console.log(cep)
-      throw new Error('invalid address')
+
+      const userAddress = new Address(cep, 'South Park', 'Casa do Cartman')
+      return userAddress
     }
 
     return {

@@ -95,7 +95,6 @@ describe('Register Use Case', () => {
         password: '123456',
         cep: '000000000',
       }),
-    ).throw(new Error('invalid address'))
-    // expect(user.address).toEqual('Casa do Cartman')
+    ).rejects.toThrow('invalid address')
   })
 })
