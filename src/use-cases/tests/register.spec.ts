@@ -1,17 +1,22 @@
-import { expect, describe, it } from 'vitest'
+import { expect, describe, it, beforeEach } from 'vitest'
 import { RegisterUseCase } from '../register'
 import { compare } from 'bcryptjs'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-user-repository'
 import { UserAlreadyExistsError } from '../erros/user-alredy-exist-error'
 
-describe('Register Use Case', () => {
-  it('should be able to registration', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
+let usersRepository: InMemoryUsersRepository
+let sut: RegisterUseCase
 
-    const { user } = await registerUseCase.execute({
+describe('Register Use Case', () => {
+  beforeEach(() => {
+    usersRepository = new InMemoryUsersRepository()
+    sut = new RegisterUseCase(usersRepository)
+  })
+
+  it('should be able to register', async () => {
+    const { user } = await sut.execute({
       name: 'john Doe',
-      email: 'johndoe.email.com',
+      email: 'johndoe@email.com',
       password: '123456',
       cep: '12345678',
       city: 'South Park',
@@ -22,12 +27,9 @@ describe('Register Use Case', () => {
   })
 
   it('should hash user password upon registration', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
-
-    const { user } = await registerUseCase.execute({
+    const { user } = await sut.execute({
       name: 'john Doe',
-      email: 'johndoe.email.com',
+      email: 'johndoe@email.com',
       password: '123456',
       cep: '12345678',
       city: 'South Park',
@@ -43,12 +45,9 @@ describe('Register Use Case', () => {
   })
 
   it('should not to able to register with same email twice', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
+    const email = 'johndoe@email.com'
 
-    const email = 'johndoe.email.com'
-
-    await registerUseCase.execute({
+    await sut.execute({
       name: 'john Doe',
       email,
       password: '123456',
@@ -58,7 +57,7 @@ describe('Register Use Case', () => {
     })
 
     expect(() =>
-      registerUseCase.execute({
+      sut.execute({
         name: 'john Doe',
         email,
         password: '123456',
@@ -70,10 +69,7 @@ describe('Register Use Case', () => {
   })
 
   it('should be possible to get the address by CEP', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
-
-    const { user } = await registerUseCase.execute({
+    const { user } = await sut.execute({
       name: 'john Doe',
       email: 'johnDoe@example.com',
       password: '123456',
@@ -85,11 +81,8 @@ describe('Register Use Case', () => {
   })
 
   it('should return an error if the CEP does not exist', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
-
     await expect(() =>
-      registerUseCase.execute({
+      sut.execute({
         name: 'john Doe',
         email: 'johnDoe@example.com',
         password: '123456',
