@@ -4,9 +4,9 @@
 - [ ] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade
 - [ ] Deve ser possível filtrar pets por suas características
 - [ ] Deve ser possível visualizar detalhes de um pet para adoção
-- [x] Deve ser possível se cadastrar
-- [ ] Deve ser possível se cadastrar como uma ORG
-- [ ] Deve ser possível realizar login como uma ORG
+- [x] Deve ser possível se autentificar
+- [x] Deve ser possível obter o perfil de um usuário logado
+- [x] Deve ser possível se cadastrar como uma ORG
 
 ## Regras de negócio
 
@@ -20,6 +20,6 @@
 ## Regras não-funcionais
 
 - [x] A senha do usuário precisa está criptografada
-- [ ] Os dados da aplicação precisam estar persistidos em um banco PostgresSQL
+- [x] Os dados da aplicação precisam estar persistidos em um banco PostgresSQL
 - [ ] Todas as listas de dados precisam estar paginadas com 20 itens por página
 - [ ] O usuário deve ser identificado com um JWT
