@@ -9,6 +9,20 @@ const cepResponseSchema = z.object({
 })
 
 export class PrismaUsersRepository implements UsersRepository {
+  findById(id: string): Promise<{
+    id: string
+    name: string
+    cep: string
+    address: string | null
+    city: string | null
+    email: string
+    password_hash: string
+    phoneNumber: string | null
+    created_at: Date
+  } | null> {
+    throw new Error('Method not implemented.')
+  }
+
   async gettingCep(cep: string) {
     try {
       const url = `https://viacep.com.br/ws/${cep}/json/`
