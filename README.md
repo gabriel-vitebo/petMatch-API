@@ -6,10 +6,12 @@
 - [ ] Deve ser possível visualizar detalhes de um pet para adoção
 - [x] Deve ser possível se autentificar
 - [x] Deve ser possível obter o perfil de um usuário logado
-- [x] Deve ser possível se cadastrar como uma ORG
+- [x] Deve ser possível se cadastrar como usuário
+- [ ] Deve ser possível se cadastrar como uma ORG
 
 ## Regras de negócio
 
+- [ ] Apenas ORG podem cadastrar pets
 - [x] O usuário não deve poder se cadastrar com um e-mail duplicado
 - [ ] Para listar os pets, obrigatoriamente precisamos informar a cidade
 - [ ] Uma ORG precisa ter um endereço e um número de WhatsApp
