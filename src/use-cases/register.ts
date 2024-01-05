@@ -1,63 +1,69 @@
-import { UsersRepository } from '@/repositories/users-repository'
+import { OrgsRepository } from '@/repositories/orgs-repository'
 import { hash } from 'bcryptjs'
-import { UserAlreadyExistsError } from './erros/user-alredy-exist-error'
-import { User } from '@prisma/client'
+import { OrgAlreadyExistsError } from './erros/org-already-exist-error'
+import { Org } from '@prisma/client'
 
 interface RegisterUseCaseRequest {
-  name: string
+  personResponsible: string
+  orgName?: string
   email: string
   password: string
   cep: string
   city?: string
   address?: string
+  phoneNumber: string
 }
 
 interface RegisterUseCaseResponse {
-  user: User
+  org: Org
 }
 
 export class RegisterUseCase {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(private orgsRepository: OrgsRepository) {}
 
   async execute({
-    name,
+    personResponsible,
+    orgName,
     email,
     password,
     cep,
     city,
     address,
+    phoneNumber,
   }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
     const password_hash = await hash(password, 6)
 
-    const userWithSameEmail = await this.usersRepository.findByEmail(email)
+    const orgWithSameEmail = await this.orgsRepository.findByEmail(email)
 
-    if (userWithSameEmail) {
-      throw new UserAlreadyExistsError()
+    if (orgWithSameEmail) {
+      throw new OrgAlreadyExistsError()
     }
 
-    const userAddress = await this.getAddress(cep, city, address)
+    const orgAddress = await this.getAddress(cep, city, address)
 
-    if (!userAddress) {
+    if (!orgAddress) {
       throw new Error('invalid address')
     }
 
-    const user = await this.usersRepository.create({
-      name,
+    const org = await this.orgsRepository.create({
+      person_responsible: personResponsible,
+      org_name: orgName,
       email,
       password_hash,
       cep,
-      city: userAddress?.city,
-      address: userAddress?.neighborhood,
+      city: orgAddress?.city,
+      address: orgAddress?.neighborhood,
+      phoneNumber,
     })
 
-    return { user }
+    return { org }
   }
 
   private async getAddress(cep: string, city?: string, address?: string) {
     const correctedCep = cep.replace(/\D/g, '')
 
     if (!city || !address) {
-      return await this.usersRepository.gettingCep(correctedCep)
+      return await this.orgsRepository.gettingCep(correctedCep)
     }
 
     return {

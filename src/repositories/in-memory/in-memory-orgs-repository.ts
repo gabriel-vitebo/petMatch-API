@@ -1,5 +1,5 @@
-import { Prisma, User } from '@prisma/client'
-import { UsersRepository } from '../users-repository'
+import { Prisma, Org } from '@prisma/client'
+import { OrgsRepository } from '../orgs-repository'
 
 class Address {
   constructor(
@@ -9,40 +9,41 @@ class Address {
   ) {}
 }
 
-export class InMemoryUsersRepository implements UsersRepository {
-  public items: User[] = []
+export class InMemoryOrgsRepository implements OrgsRepository {
+  public items: Org[] = []
 
   async findById(id: string) {
-    const user = this.items.find((item) => item.id === id)
+    const org = this.items.find((item) => item.id === id)
 
-    if (!user) {
+    if (!org) {
       return null
     }
 
-    return user
+    return org
   }
 
   async findByEmail(email: string) {
-    const user = this.items.find((item) => item.email === email)
+    const org = this.items.find((item) => item.email === email)
 
-    if (!user) {
+    if (!org) {
       return null
     }
 
-    return user
+    return org
   }
 
-  async create(data: Prisma.UserCreateInput) {
+  async create(data: Prisma.OrgCreateInput) {
     const user = {
       id: 'user-1',
-      name: data.name,
+      person_responsible: data.person_responsible,
+      org_name: data.org_name || null,
       email: data.email,
       password_hash: data.password_hash,
       cep: data.cep,
       city: data.city || null,
       address: data.address || null,
       created_at: new Date(),
-      phoneNumber: data.phoneNumber || null,
+      phoneNumber: data.phoneNumber,
     }
 
     this.items.push(user)
