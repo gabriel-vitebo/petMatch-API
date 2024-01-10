@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
-import { UsersRepository } from '../users-repository'
+import { OrgsRepository } from '../orgs-repository'
 import { z } from 'zod'
 
 const cepResponseSchema = z.object({
@@ -8,16 +8,17 @@ const cepResponseSchema = z.object({
   bairro: z.string(),
 })
 
-export class PrismaUsersRepository implements UsersRepository {
+export class PrismaOrgsRepository implements OrgsRepository {
   findById(id: string): Promise<{
     id: string
-    name: string
+    org_name: string | null
+    person_responsible: string
     cep: string
     address: string | null
     city: string | null
     email: string
     password_hash: string
-    phoneNumber: string | null
+    phoneNumber: string
     created_at: Date
   } | null> {
     throw new Error('Method not implemented.')
@@ -47,20 +48,20 @@ export class PrismaUsersRepository implements UsersRepository {
   }
 
   async findByEmail(email: string) {
-    const user = await prisma.user.findUnique({
+    const org = await prisma.org.findUnique({
       where: {
         email,
       },
     })
 
-    return user
+    return org
   }
 
-  async create(data: Prisma.UserCreateInput) {
-    const user = await prisma.user.create({
+  async create(data: Prisma.OrgCreateInput) {
+    const org = await prisma.org.create({
       data,
     })
 
-    return user
+    return org
   }
 }
