@@ -79,7 +79,7 @@ describe('Register Use Case', () => {
     })
 
     expect(org.city).toEqual('South Park')
-    expect(org.address).toEqual('Casa do Cartman')
+    expect(org.address).toEqual('do lado da casa do Cartman')
   })
 
   it('should return an error if the CEP does not exist', async () => {

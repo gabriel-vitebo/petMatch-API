@@ -33,8 +33,8 @@ export class InMemoryOrgsRepository implements OrgsRepository {
   }
 
   async create(data: Prisma.OrgCreateInput) {
-    const user = {
-      id: 'user-1',
+    const org = {
+      id: 'org-1',
       person_responsible: data.person_responsible,
       org_name: data.org_name || null,
       email: data.email,
@@ -46,9 +46,9 @@ export class InMemoryOrgsRepository implements OrgsRepository {
       phoneNumber: data.phoneNumber,
     }
 
-    this.items.push(user)
+    this.items.push(org)
 
-    return user
+    return org
   }
 
   async gettingCep(cep: string, city?: string, address?: string) {
@@ -57,8 +57,12 @@ export class InMemoryOrgsRepository implements OrgsRepository {
         throw new Error('invalid address')
       }
 
-      const userAddress = new Address(cep, 'South Park', 'Casa do Cartman')
-      return userAddress
+      const orgAddress = new Address(
+        cep,
+        'South Park',
+        'do lado da casa do Cartman',
+      )
+      return orgAddress
     }
 
     return {
