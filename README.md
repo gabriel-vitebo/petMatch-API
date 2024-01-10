@@ -6,8 +6,7 @@
 - [ ] Deve ser possível visualizar detalhes de um pet para adoção
 - [x] Deve ser possível se autentificar
 - [x] Deve ser possível obter o perfil de um usuário logado
-- [x] Deve ser possível se cadastrar como usuário
-- [ ] Deve ser possível se cadastrar como uma ORG
+- [x] Deve ser possível se cadastrar como uma ORG
 
 ## Regras de negócio
 

@@ -28,6 +28,7 @@ model Org {
 
 model Pet {
   id                    String   @id @default(uuid())
+  created_at            DateTime @default(now())
   name                  String
   about                 String
   age                   String
