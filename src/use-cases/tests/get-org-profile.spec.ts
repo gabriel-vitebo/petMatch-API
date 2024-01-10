@@ -26,12 +26,12 @@ describe('Get User Profile Use Case', () => {
       orgId: createdOrg.id,
     })
 
-    expect(org.id).toEqual(expect.any(String))
-    expect(org.person_responsible).toEqual('John Doe')
+    await expect(org.id).toEqual(expect.any(String))
+    await expect(org.person_responsible).toEqual('John Doe')
   })
 
   it('should not be able to get user profile with wrong id', async () => {
-    expect(() =>
+    await expect(() =>
       sut.execute({
         orgId: 'non-existing-id',
       }),

@@ -24,7 +24,7 @@ describe('Register Use Case', () => {
       phoneNumber: '123456789',
     })
 
-    expect(org.id).toEqual(expect.any(String))
+    await expect(org.id).toEqual(expect.any(String))
   })
 
   it('should hash user password upon registration', async () => {
@@ -40,7 +40,7 @@ describe('Register Use Case', () => {
 
     const isPasswordCorrectlyHashed = await compare('123456', org.password_hash)
 
-    expect(isPasswordCorrectlyHashed).toBe(true)
+    await expect(isPasswordCorrectlyHashed).toBe(true)
   })
 
   it('should not to able to register with same email twice', async () => {
@@ -56,7 +56,7 @@ describe('Register Use Case', () => {
       phoneNumber: '123456879',
     })
 
-    expect(() =>
+    await expect(() =>
       sut.execute({
         personResponsible: 'john Doe',
         email,
@@ -78,8 +78,8 @@ describe('Register Use Case', () => {
       phoneNumber: '123456879',
     })
 
-    expect(org.city).toEqual('South Park')
-    expect(org.address).toEqual('do lado da casa do Cartman')
+    await expect(org.city).toEqual('South Park')
+    await expect(org.address).toEqual('do lado da casa do Cartman')
   })
 
   it('should return an error if the CEP does not exist', async () => {
