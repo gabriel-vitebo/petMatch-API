@@ -2,6 +2,7 @@ import { Pet } from '@prisma/client'
 import { PetsRepository } from '@/repositories/pets-repository'
 
 interface PetUseCaseRequest {
+  orgId: string
   name: string
   about: string | null
   age: string
@@ -10,7 +11,6 @@ interface PetUseCaseRequest {
   levelOfIndependence: string
   environment: string
   requirements: string[]
-  orgId: string
 }
 
 interface PetUseCaseResponse {
@@ -21,6 +21,7 @@ export class RegisterUseCase {
   constructor(private petsRepository: PetsRepository) {}
 
   async execute({
+    orgId,
     name,
     about,
     age,
@@ -39,7 +40,7 @@ export class RegisterUseCase {
       level_of_independence: levelOfIndependence,
       requirements,
       size,
-      orgId,
+      org_id: orgId,
     })
 
     return { pet }
