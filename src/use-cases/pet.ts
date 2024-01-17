@@ -1,14 +1,14 @@
-import { Pet } from '@prisma/client'
+import { Characteristics, Age, Pet } from '@prisma/client'
 import { PetsRepository } from '@/repositories/pets-repository'
 
 interface PetUseCaseRequest {
   orgId: string
   name: string
   about: string | null
-  age: string
-  size: string
-  energyLevel: string
-  levelOfIndependence: string
+  age: Age
+  size: Characteristics
+  energyLevel: Characteristics
+  levelOfIndependence: Characteristics
   environment: string
   requirements: string[]
 }
@@ -17,8 +17,8 @@ interface PetUseCaseResponse {
   pet: Pet
 }
 
-export class RegisterUseCase {
-  constructor(private petsRepository: PetsRepository) {}
+export class PetsUseCase {
+  constructor(private petsRepository: PetsRepository) { }
 
   async execute({
     orgId,
