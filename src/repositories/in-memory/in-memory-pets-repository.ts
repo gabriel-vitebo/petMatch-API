@@ -21,7 +21,7 @@ export class InMemoryPetsRepository implements PetsRepository {
       org_id: data.org_id,
       name: data.name,
       about: data.about || null,
-      age: data.age,
+      age: data.age || 'CUB' || 'ELDERLY',
       energy_level: data.energy_level || 'LOW' || 'HIGH',
       environment: data.environment,
       level_of_independence: data.level_of_independence || 'LOW' || 'HIGH',

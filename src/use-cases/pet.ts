@@ -1,11 +1,11 @@
-import { Characteristics, Pet } from '@prisma/client'
+import { Characteristics, Age, Pet } from '@prisma/client'
 import { PetsRepository } from '@/repositories/pets-repository'
 
 interface PetUseCaseRequest {
   orgId: string
   name: string
   about: string | null
-  age: string
+  age: Age
   size: Characteristics
   energyLevel: Characteristics
   levelOfIndependence: Characteristics

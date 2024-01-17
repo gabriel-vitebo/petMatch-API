@@ -31,7 +31,7 @@ model Pet {
   created_at            DateTime        @default(now())
   name                  String
   about                 String?
-  age                   String
+  age                   Age             @default(ADULT)
   size                  Characteristics @default(MIDDLE)
   energy_level          Characteristics @default(MIDDLE)
   level_of_independence Characteristics @default(MIDDLE)
@@ -49,4 +49,10 @@ enum Characteristics {
   LOW
   MIDDLE
   HIGH
+}
+
+enum Age {
+  CUB
+  ADULT
+  ELDERLY
 }
