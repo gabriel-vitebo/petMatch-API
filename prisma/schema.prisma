@@ -27,14 +27,14 @@ model Org {
 }
 
 model Pet {
-  id                    String   @id @default(uuid())
-  created_at            DateTime @default(now())
+  id                    String          @id @default(uuid())
+  created_at            DateTime        @default(now())
   name                  String
   about                 String?
   age                   String
-  size                  String
-  energy_level          String
-  level_of_independence String
+  size                  Characteristics @default(MIDDLE)
+  energy_level          Characteristics @default(MIDDLE)
+  level_of_independence Characteristics @default(MIDDLE)
   environment           String
   photo                 String?
   requirements          String[]
@@ -43,4 +43,10 @@ model Pet {
   org_id String
 
   @@map("pets")
+}
+
+enum Characteristics {
+  LOW
+  MIDDLE
+  HIGH
 }
