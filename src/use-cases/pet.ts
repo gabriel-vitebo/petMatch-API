@@ -18,7 +18,7 @@ interface PetUseCaseResponse {
 }
 
 export class RegisterUseCase {
-  constructor(private petsRepository: PetsRepository) { }
+  constructor(private petsRepository: PetsRepository) {}
 
   async execute({
     orgId,
