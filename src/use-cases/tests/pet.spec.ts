@@ -21,7 +21,7 @@ describe('Pet Use Case', () => {
       size: 'MIDDLE',
       about: 'é um pet bonitinho',
       environment: 'aberto',
-      requirements: ['requisito um', 'requisito dois', 'requisito 3'],
+      requirements: ['requisito um', 'requisito dois', 'requisito três'],
     })
 
     expect(pet.id).toEqual(expect.any(String))
