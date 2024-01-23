@@ -25,7 +25,7 @@ export class InMemoryPetsRepository implements PetsRepository {
       energy_level: data.energy_level || 'LOW' || 'HIGH',
       environment: data.environment,
       level_of_independence: data.level_of_independence || 'LOW' || 'HIGH',
-      requirements: data.requirements,
+      requirements: data.requirements || [],
       size: data.size || 'LOW' || 'HIGH',
       photo: data.photo || null,
       created_at: new Date(),

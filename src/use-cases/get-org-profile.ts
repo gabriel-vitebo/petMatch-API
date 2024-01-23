@@ -11,7 +11,7 @@ interface GetOrgProfileUseCaseResponse {
 }
 
 export class GetOrgProfileUseCase {
-  constructor(private orgsRepository: OrgsRepository) {}
+  constructor(private orgsRepository: OrgsRepository) { }
 
   async execute({
     orgId,
