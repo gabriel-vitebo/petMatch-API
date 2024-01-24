@@ -7,11 +7,20 @@ class Address {
     public cep: string,
     public city: string,
     public neighborhood: string,
-  ) {}
+  ) { }
 }
 
 export class InMemoryOrgsRepository implements OrgsRepository {
   public items: Org[] = []
+  async findByCity(city: string) {
+    const orgsThatMatched = this.items.filter((item) => item.city === city).map((org) => org.id)
+
+    if (!orgsThatMatched || orgsThatMatched.length === 0) {
+      return []
+    }
+
+    return orgsThatMatched
+  }
 
   async findById(id: string) {
     const org = this.items.find((item) => item.id === id)

@@ -5,6 +5,17 @@ import { randomUUID } from 'node:crypto'
 export class InMemoryPetsRepository implements PetsRepository {
   public items: Pet[] = []
 
+  async findManyByCityOfTheOrg(org_id: string[]) {
+    const petsMatched: Pet[] = []
+
+    org_id.forEach((org_id) => {
+      const petsOfOrg = this.items.filter((item) => item.id === org_id);
+      petsMatched.push(...petsOfOrg);
+    });
+
+    return petsMatched.length > 0 ? petsMatched : [];
+  }
+
   async findById(id: string) {
     const pet = this.items.find((item) => item.id === id)
 
