@@ -1,7 +1,6 @@
 import { expect, describe, it, beforeEach } from 'vitest'
 import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
 import { hash } from 'bcryptjs'
-import { GetOrgProfileUseCase } from '../get-org-profile'
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
 import { FetchPetByCityUseCase } from '../fetch-pets-by-city'
 
@@ -17,8 +16,7 @@ describe('Get User Profile Use Case', () => {
   })
 
   it('should be able to possible to list all the pets in a city', async () => {
-    await orgsRepository.create({
-      id: 'org_01',
+    const orgOne = await orgsRepository.create({
       city: 'São José dos Campos',
       cep: '000000000',
       email: 'johndoe@email.com',
@@ -27,8 +25,7 @@ describe('Get User Profile Use Case', () => {
       phoneNumber: '123456789'
     })
 
-    await orgsRepository.create({
-      id: 'org_02',
+    const orgTwo = await orgsRepository.create({
       city: 'São José dos Campos',
       cep: '000000000',
       email: 'johndoeTwo@email.com',
@@ -37,8 +34,8 @@ describe('Get User Profile Use Case', () => {
       phoneNumber: '123456789'
     })
 
-    await orgsRepository.create({
-      id: 'org_03',
+
+    const orgThree = await orgsRepository.create({
       city: 'Salvador',
       cep: '000000000',
       email: 'johndoeThree@email.com',
@@ -47,9 +44,10 @@ describe('Get User Profile Use Case', () => {
       phoneNumber: '123456789'
     })
 
+
     await petsRepository.create({
       id: 'id_01',
-      org_id: 'org_01',
+      org_id: orgOne.id,
       name: 'pet john doe',
       environment: 'aberto',
       requirements: ['limpo', 'alegre'],
@@ -58,9 +56,10 @@ describe('Get User Profile Use Case', () => {
       level_of_independence: 'MIDDLE',
     })
 
+
     await petsRepository.create({
       id: 'id_02',
-      org_id: 'org_01',
+      org_id: orgOne.id,
       name: 'pet john doe two',
       environment: 'aberto',
       requirements: ['limpo', 'alegre'],
@@ -69,9 +68,10 @@ describe('Get User Profile Use Case', () => {
       level_of_independence: 'MIDDLE',
     })
 
+
     await petsRepository.create({
       id: 'id_03',
-      org_id: 'org_02',
+      org_id: orgTwo.id,
       name: 'pet other john doe',
       environment: 'aberto',
       requirements: ['limpo', 'alegre'],
@@ -80,9 +80,10 @@ describe('Get User Profile Use Case', () => {
       level_of_independence: 'MIDDLE',
     })
 
+
     await petsRepository.create({
       id: 'id_04',
-      org_id: 'org_03',
+      org_id: orgThree.id,
       name: 'pet other john doe',
       environment: 'aberto',
       requirements: ['limpo', 'alegre'],
@@ -90,6 +91,7 @@ describe('Get User Profile Use Case', () => {
       energy_level: 'MIDDLE',
       level_of_independence: 'MIDDLE',
     })
+
 
     const { pets } = await sut.execute({
       citySearched: 'São José dos Campos',

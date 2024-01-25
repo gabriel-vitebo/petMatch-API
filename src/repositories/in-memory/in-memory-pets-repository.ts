@@ -9,7 +9,7 @@ export class InMemoryPetsRepository implements PetsRepository {
     const petsMatched: Pet[] = []
 
     org_id.forEach((org_id) => {
-      const petsOfOrg = this.items.filter((item) => item.id === org_id);
+      const petsOfOrg = this.items.filter((item) => item.org_id === org_id);
       petsMatched.push(...petsOfOrg);
     });
 
