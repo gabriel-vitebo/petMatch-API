@@ -1,12 +1,13 @@
 import { Pet } from '@prisma/client'
 import { PetsRepository } from '@/repositories/pets-repository'
 import { OrgsRepository } from '@/repositories/orgs-repository'
-import { ResourceNotFoundError } from './erros/resource-not-found-error'
+import { MandatoryFieldError } from './erros/mandatory-filed-error'
 
 
 
 interface FetchPetByCityUseCaseRequest {
   citySearched: string
+  page: number
 }
 
 interface FetchPetByCityUseCaseResponse {
@@ -20,11 +21,17 @@ export class FetchPetByCityUseCase {
   ) { }
 
   async execute({
-    citySearched
+    citySearched,
+    page
   }: FetchPetByCityUseCaseRequest): Promise<FetchPetByCityUseCaseResponse> {
+
+    if (!citySearched) {
+      throw new MandatoryFieldError()
+    }
+
     const citiesThatMatched = await this.orgsRepository.findByCity(citySearched)
 
-    const pets = await this.petsRepository.findManyByCityOfTheOrg(citiesThatMatched)
+    const pets = await this.petsRepository.findManyByCityOfTheOrg(citiesThatMatched, page)
 
     return {
       pets
