@@ -3,7 +3,7 @@
 - [x] Deve ser possível cadastrar um pet
 - [x] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade
 - [ ] Deve ser possível filtrar pets por suas características
-- [ ] Deve ser possível visualizar detalhes de um pet para adoção
+- [x] Deve ser possível visualizar detalhes de um pet para adoção
 - [x] Deve ser possível se autentificar
 - [x] Deve ser possível obter o perfil de um usuário logado
 - [x] Deve ser possível se cadastrar como uma ORG
@@ -12,11 +12,10 @@
 
 - [x] Apenas ORG podem cadastrar pets
 - [x] O usuário não deve poder se cadastrar com um e-mail duplicado
-- [ ] Para listar os pets, obrigatoriamente precisamos informar a cidade
+- [x] Para listar os pets, obrigatoriamente precisamos informar a cidade
 - [x] Uma ORG precisa ter um endereço e um número de WhatsApp
 - [x] Um pet deve estar ligado a uma ORG
 - [ ] O usuário que quer adotar, entrará em contato com a ORG via WhatsApp
-- [ ] Para uma ORG acessar a aplicação como admin, ela precisa estar logada
 
 ## Regras não-funcionais
 
