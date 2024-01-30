@@ -3,8 +3,6 @@ import { PetsRepository } from '@/repositories/pets-repository'
 import { OrgsRepository } from '@/repositories/orgs-repository'
 import { MandatoryFieldError } from './erros/mandatory-filed-error'
 
-
-
 interface FetchPetByCityUseCaseRequest {
   citySearched: string
   page: number

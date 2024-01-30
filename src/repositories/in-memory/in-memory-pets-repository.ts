@@ -1,10 +1,36 @@
-import { Pet, Prisma } from '@prisma/client'
+import { $Enums, Pet, Prisma } from '@prisma/client'
 import { PetsRepository } from '../pets-repository'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryPetsRepository implements PetsRepository {
   public items: Pet[] = []
 
+  async findManyByCharacteristics(
+    age: $Enums.Age | null,
+    energyLevel: $Enums.Characteristics | null,
+    levelOfIndependence: $Enums.Characteristics | null,
+    size: $Enums.Characteristics | null) {
+    let filteredPets = this.items
+
+    if (age) {
+      filteredPets = filteredPets.filter((item) => item.age === age)
+    }
+
+    if (energyLevel) {
+      filteredPets = filteredPets.filter((item) => item.energy_level === energyLevel)
+    }
+
+    if (levelOfIndependence) {
+      filteredPets = filteredPets.filter((item) => item.level_of_independence === levelOfIndependence)
+    }
+
+    if (size) {
+      filteredPets = filteredPets.filter((item) => item.size === size)
+    }
+
+    return filteredPets
+
+  }
   async findManyByCityOfTheOrg(org_id: string[], page: number) {
     const petsMatched: Pet[] = []
 
