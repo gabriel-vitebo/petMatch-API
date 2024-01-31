@@ -9,19 +9,26 @@ const cepResponseSchema = z.object({
 })
 
 export class PrismaOrgsRepository implements OrgsRepository {
-  findById(id: string): Promise<{
-    id: string
-    org_name: string | null
-    person_responsible: string
-    cep: string
-    address: string | null
-    city: string | null
-    email: string
-    password_hash: string
-    phoneNumber: string
-    created_at: Date
-  } | null> {
-    throw new Error('Method not implemented.')
+  async findByCity(citySearched: string) {
+    const cities = await prisma.org.findMany({
+      where: {
+        city: citySearched
+      }
+    })
+
+    const orgIds: string[] = cities.map(org => org.id);
+
+    return orgIds;
+  }
+
+  async findById(id: string) {
+    const org = await prisma.org.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    return org
   }
 
   async gettingCep(cep: string) {
