@@ -66,6 +66,7 @@ describe('Fetch Pets By Characteristics Use Case', () => {
 
 
     const { pets } = await sut.execute({
+      page: 1,
       age: 'ELDERLY',
       energy_level: 'LOW',
       level_of_independence: 'LOW',
@@ -130,6 +131,7 @@ describe('Fetch Pets By Characteristics Use Case', () => {
 
 
     const { pets } = await sut.execute({
+      page: 1,
       age: 'CUB',
       energy_level: null,
       level_of_independence: null,
@@ -142,6 +144,7 @@ describe('Fetch Pets By Characteristics Use Case', () => {
   it('should return an empty array if nothing is found', async () => {
 
     const { pets } = await sut.execute({
+      page: 1,
       age: 'CUB',
       energy_level: 'MIDDLE',
       level_of_independence: 'MIDDLE',
@@ -149,5 +152,36 @@ describe('Fetch Pets By Characteristics Use Case', () => {
     })
 
     expect(pets).toHaveLength(0)
+  })
+
+  it('should be able to fetch paginated pet list', async () => {
+
+    for (let i = 1; i <= 22; i++) {
+      await petsRepository.create({
+        id: `id_${i}`,
+        org_id: `orgOne.id_${i}`,
+        name: 'pet john doe',
+        environment: 'aberto',
+        requirements: ['limpo', 'alegre'],
+        age: 'CUB',
+        energy_level: 'MIDDLE',
+        level_of_independence: 'MIDDLE',
+        size: 'MIDDLE'
+      })
+    }
+
+    const { pets } = await sut.execute({
+      page: 2,
+      age: 'CUB',
+      energy_level: 'MIDDLE',
+      level_of_independence: 'MIDDLE',
+      size: 'MIDDLE',
+    })
+
+    expect(pets).toHaveLength(2)
+    expect(pets).toEqual([
+      expect.objectContaining({ id: 'id_21' }),
+      expect.objectContaining({ id: 'id_22' })
+    ])
   })
 })

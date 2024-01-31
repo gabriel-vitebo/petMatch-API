@@ -3,6 +3,7 @@ import { Age, Characteristics, Pet, Prisma } from '@prisma/client'
 export interface PetsRepository {
   findManyByCityOfTheOrg(org_id: string[], page: number): Promise<Array<Pet> | []>
   findManyByCharacteristics(
+    page: number,
     age: Age | null,
     energyLevel: Characteristics | null,
     levelOfIndependence: Characteristics | null,

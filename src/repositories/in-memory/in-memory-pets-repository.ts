@@ -6,6 +6,7 @@ export class InMemoryPetsRepository implements PetsRepository {
   public items: Pet[] = []
 
   async findManyByCharacteristics(
+    page: number,
     age: $Enums.Age | null,
     energyLevel: $Enums.Characteristics | null,
     levelOfIndependence: $Enums.Characteristics | null,
@@ -28,7 +29,7 @@ export class InMemoryPetsRepository implements PetsRepository {
       filteredPets = filteredPets.filter((item) => item.size === size)
     }
 
-    return filteredPets
+    return filteredPets.slice((page - 1) * 20, page * 20);
 
   }
   async findManyByCityOfTheOrg(org_id: string[], page: number) {
