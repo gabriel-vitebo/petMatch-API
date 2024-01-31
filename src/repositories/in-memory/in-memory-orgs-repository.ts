@@ -12,6 +12,7 @@ class Address {
 
 export class InMemoryOrgsRepository implements OrgsRepository {
   public items: Org[] = []
+
   async findByCity(city: string) {
     const orgsThatMatched = this.items.filter((item) => item.city === city).map((org) => org.id)
 
