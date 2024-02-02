@@ -3,7 +3,7 @@ import { AuthenticateUseCase } from '../authenticate'
 
 export function makeAuthenticateUseCase() {
   const prismaOrgsRepository = new PrismaOrgsRepository()
-  const authenticateUseCase = new AuthenticateUseCase(prismaOrgsRepository)
+  const useCase = new AuthenticateUseCase(prismaOrgsRepository)
 
-  return authenticateUseCase
+  return useCase
 }

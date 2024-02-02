@@ -17,7 +17,12 @@ export class PrismaPetsRepository implements PetsRepository {
     return pets
   }
 
-  async findManyByCharacteristics(page: number, age: $Enums.Age | null, energyLevel: $Enums.Characteristics | null, levelOfIndependence: $Enums.Characteristics | null, size: $Enums.Characteristics | null) {
+  async findManyByCharacteristics(
+    page: number,
+    age: $Enums.Age | null,
+    energyLevel: $Enums.Characteristics | null,
+    levelOfIndependence: $Enums.Characteristics | null,
+    size: $Enums.Characteristics | null) {
     const pets = await prisma.pet.findMany({
       where: {
         age,
