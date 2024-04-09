@@ -22,4 +22,4 @@
 - [x] A senha do usuário precisa está criptografada
 - [x] Os dados da aplicação precisam estar persistidos em um banco PostgresSQL
 - [x] Todas as listas de dados precisam estar paginadas com 20 itens por página
-- [ ] O usuário deve ser identificado com um JWT
+- [x] O usuário deve ser identificado com um JWT

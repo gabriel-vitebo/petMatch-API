@@ -17,9 +17,8 @@ export class GetOrgPhoneNumberUseCase {
   ) { }
 
   async execute({
-    petId
+    petId,
   }: GetOrgPhoneNumberUseCaseRequest): Promise<GetOrgPhoneNumberUseCaseResponse> {
-
     const pet = await this.petsRepository.findById(petId)
 
     if (!pet?.org_id) {
@@ -34,6 +33,5 @@ export class GetOrgPhoneNumberUseCase {
     const phoneNumber = org.phoneNumber
 
     return { phoneNumber }
-
   }
 }
