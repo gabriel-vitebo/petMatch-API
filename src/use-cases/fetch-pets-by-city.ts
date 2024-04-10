@@ -20,21 +20,21 @@ export class FetchPetByCityUseCase {
 
   async execute({
     citySearched,
-    page
+    page,
   }: FetchPetByCityUseCaseRequest): Promise<FetchPetByCityUseCaseResponse> {
-
     if (!citySearched) {
       throw new MandatoryFieldError()
     }
 
     const citiesThatMatched = await this.orgsRepository.findByCity(citySearched)
 
-    const pets = await this.petsRepository.findManyByCityOfTheOrg(citiesThatMatched, page)
+    const pets = await this.petsRepository.findManyByCityOfTheOrg(
+      citiesThatMatched,
+      page,
+    )
 
     return {
-      pets
+      pets,
     }
-
-
   }
 }

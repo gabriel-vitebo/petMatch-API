@@ -5,7 +5,10 @@ import { FetchPetByCityUseCase } from '../fetch-pets-by-city'
 export function makeFetchPetsByCityUseCase() {
   const prismaPetsRepository = new PrismaPetsRepository()
   const prismaOrgsRepository = new PrismaOrgsRepository()
-  const useCase = new FetchPetByCityUseCase(prismaPetsRepository, prismaOrgsRepository)
+  const useCase = new FetchPetByCityUseCase(
+    prismaPetsRepository,
+    prismaOrgsRepository,
+  )
 
   return useCase
 }
