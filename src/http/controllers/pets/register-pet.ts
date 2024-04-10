@@ -7,7 +7,6 @@ export async function registerPet(
   reply: FastifyReply,
 ) {
   const registerPetBodySchema = z.object({
-    orgId: z.string().uuid(),
     name: z.string(),
     about: z.string().nullable(),
     age: z.enum(['CUB', 'ADULT', 'ELDERLY']),
@@ -19,7 +18,6 @@ export async function registerPet(
   })
 
   const {
-    orgId,
     name,
     about,
     age,
@@ -33,7 +31,7 @@ export async function registerPet(
   const registerPetUseCase = makeRegisterPetUseCase()
 
   await registerPetUseCase.execute({
-    orgId,
+    orgId: request.user.sub,
     name,
     about,
     age,
