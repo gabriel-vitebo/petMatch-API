@@ -2,7 +2,10 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeFetchPetsByCharacteristicsUseCase } from '@/use-cases/factories/make-fetch-pets-by-characteristics-use-case'
 
-export async function details(request: FastifyRequest, reply: FastifyReply) {
+export async function fetchByCharacteristics(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   const fetchPetByCharacteristicsQuerySchema = z.object({
     page: z.coerce.number().min(1).default(1),
     age: z.enum(['CUB', 'ADULT', 'ELDERLY']).nullable(),

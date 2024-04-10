@@ -2,7 +2,10 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeFetchPetsByCityUseCase } from '@/use-cases/factories/make-fetch-pets-by-city-use-case'
 
-export async function details(request: FastifyRequest, reply: FastifyReply) {
+export async function fetchByCity(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   const fetchPetByCitQuerySchema = z.object({
     citySearched: z.string(),
     page: z.coerce.number().min(1).default(1),
