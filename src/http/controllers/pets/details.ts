@@ -22,7 +22,7 @@ export async function details(request: FastifyRequest, reply: FastifyReply) {
   })
 
   return reply.status(200).send({
-    pet: {
+    data: {
       pet,
     },
     contact: {

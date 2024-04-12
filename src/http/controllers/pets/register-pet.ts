@@ -30,7 +30,7 @@ export async function registerPet(
 
   const registerPetUseCase = makeRegisterPetUseCase()
 
-  await registerPetUseCase.execute({
+  const data = await registerPetUseCase.execute({
     orgId: request.user.sub,
     name,
     about,
@@ -42,5 +42,5 @@ export async function registerPet(
     requirements,
   })
 
-  return reply.status(201).send()
+  return reply.status(201).send({ petId: data.pet.id })
 }
