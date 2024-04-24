@@ -10,6 +10,7 @@
 
 ## Regras de negócio
 
+
 - [x] Apenas ORG podem cadastrar pets
 - [x] O usuário não deve poder se cadastrar com um e-mail duplicado
 - [x] Para listar os pets, obrigatoriamente precisamos informar a cidade
