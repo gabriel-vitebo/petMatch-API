@@ -9,13 +9,13 @@ jobs:
 
     services:
       postgres:
-      image: bitnami/postgresql:latest
-      ports: 
-        - 5432:5432
-      environment:
-        - POSTGRESQL_USERNAME=docker
-        - POSTGRESQL_PASSWORD=docker
-        - POSTGRESQL_DATABASE=apipetmatch 
+        image: bitnami/postgresql:latest
+        ports: 
+          - 5432:5432
+        environment:
+          - POSTGRESQL_USERNAME=docker
+          - POSTGRESQL_PASSWORD=docker
+          - POSTGRESQL_DATABASE=apipetmatch 
 
     steps:
       - uses: actions/checkout@v4 
